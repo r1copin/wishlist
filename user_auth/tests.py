@@ -2,11 +2,11 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
 
 
 class AuthTests(APITestCase):
-
     def setUp(self):
         self.register_url = "/api/register/"
         self.login_url = "/api/login/"
@@ -14,7 +14,7 @@ class AuthTests(APITestCase):
         self.user_data = {
             "username": "johndoe",
             "email": "john@example.com",
-            "password": "strongpass123"
+            "password": "strongpass123",
         }
 
     def test_register_user(self):
@@ -27,7 +27,7 @@ class AuthTests(APITestCase):
         User.objects.create_user(**self.user_data)
         login_payload = {
             "username": self.user_data["username"],
-            "password": self.user_data["password"]
+            "password": self.user_data["password"],
         }
         response = self.client.post(self.login_url, login_payload)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -37,7 +37,7 @@ class AuthTests(APITestCase):
     def test_me_authenticated(self):
         user = User.objects.create_user(**self.user_data)
         access_token = str(RefreshToken.for_user(user).access_token)
-        auth_header = {'HTTP_AUTHORIZATION': f'Bearer {access_token}'}
+        auth_header = {"HTTP_AUTHORIZATION": f"Bearer {access_token}"}
 
         response = self.client.get(self.me_url, **auth_header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
