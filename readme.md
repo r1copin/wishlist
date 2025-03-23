@@ -13,7 +13,9 @@ Powered by JWT, Docker, Swagger.
 - Unit tests with coverage (see Quickstart)
 - Docker
 - Swagger API docs at `/swagger`
-- Prometheus metrics at `/metrics` + logging in console & file
+![Image](https://github.com/user-attachments/assets/ecdd37c5-1616-43c9-8ba9-6f08a1fec726)
+- Prometheus metrics at `/metrics` + logging in console & file 
+![Image](https://github.com/user-attachments/assets/5e85cdce-fe02-428d-992e-64e9707c287a)
 - Github actions
 
 ---

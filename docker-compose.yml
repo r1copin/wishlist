@@ -11,9 +11,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - wishlist-network
 
   web:
     build: .
+    container_name: api-wish
     volumes:
       - .:/app
     ports:
@@ -27,6 +30,26 @@ services:
       interval: 5s
       timeout: 2s
       retries: 5
+    networks:
+      - wishlist-network
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - wishlist-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   postgres_data:
+
+networks:
+  wishlist-network:
