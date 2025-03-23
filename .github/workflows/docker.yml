@@ -1,4 +1,4 @@
-name: Django CI
+name: Docker CI
 
 on:
   push:
@@ -21,6 +21,18 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
+
+    env:
+      DB_NAME: jwt_db
+      DB_USER: jwt_user
+      DB_PASSWORD: jwt_pass
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_EMAIL: admin@example.com
+      DJANGO_SUPERUSER_PASSWORD: admin123
+      SECRET_KEY: test-secret
+      DEBUG: False
 
     steps:
       - uses: actions/checkout@v3
