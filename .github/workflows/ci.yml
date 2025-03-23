@@ -58,3 +58,23 @@ jobs:
         run: |
           coverage run manage.py test
           coverage report --fail-under=80
+          
+
+      - name: Set up Docker Compose
+        run: docker-compose build
+
+      - name: Run coverage tests inside Docker
+        run: |
+          docker-compose run --rm web sh -c "
+            coverage run manage.py test &&
+            coverage report --fail-under=80
+          "
+
+      - name: Generate HTML coverage report
+        run: docker-compose run --rm web coverage html
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-html
+          path: htmlcov/
