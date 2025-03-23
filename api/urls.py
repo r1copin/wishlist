@@ -9,9 +9,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="JWT Wishlist API",
+        title="Ricopin Wishlist API",
         default_version="v1",
-        description="API documentation for the JWT-based Wishlist project",
+        description="API documentation for the Wishlist project with JWT-based authentication",
     ),
     public=True,
     permission_classes=[permissions.AllowAny],

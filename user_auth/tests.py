@@ -12,16 +12,16 @@ class AuthTests(APITestCase):
         self.login_url = "/api/login/"
         self.me_url = "/api/me/"
         self.user_data = {
-            "username": "johndoe",
-            "email": "john@example.com",
-            "password": "strongpass123",
+            "username": "tanya-kta",
+            "email": "tanya-kta@ex.com",
+            "password": "123123",
         }
 
     def test_register_user(self):
         response = self.client.post(self.register_url, self.user_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.count(), 1)
-        self.assertEqual(User.objects.first().username, "johndoe")
+        self.assertEqual(User.objects.first().username, "tanya-kta")
 
     def test_login_user(self):
         User.objects.create_user(**self.user_data)
@@ -41,7 +41,7 @@ class AuthTests(APITestCase):
 
         response = self.client.get(self.me_url, **auth_header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["username"], "johndoe")
+        self.assertEqual(response.data["username"], "tanya-kta")
 
     def test_me_unauthenticated(self):
         response = self.client.get(self.me_url)
