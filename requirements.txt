@@ -9,3 +9,4 @@ drf-yasg
 django_nose
 coverage
 black==24.1.1
+django-prometheus
