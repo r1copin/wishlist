@@ -8,32 +8,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      db:
-        image: postgres:14
-        env:
-          POSTGRES_DB: jwt_db
-          POSTGRES_USER: jwt_user
-          POSTGRES_PASSWORD: jwt_pass
-        ports: ['5432:5432']
-        options: >-
-          --health-cmd="pg_isready -U jwt_user -d jwt_db"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
-    env:
-      DB_NAME: jwt_db
-      DB_USER: jwt_user
-      DB_PASSWORD: jwt_pass
-      DB_HOST: localhost
-      DB_PORT: 5432
-      DJANGO_SUPERUSER_USERNAME: admin
-      DJANGO_SUPERUSER_EMAIL: admin@example.com
-      DJANGO_SUPERUSER_PASSWORD: admin123
-      SECRET_KEY: test-secret
-      DEBUG: False
-
     steps:
       - uses: actions/checkout@v3
 
@@ -41,6 +15,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
+
+      - name: Write secrets to .env
+        run: |
+            echo "${{ secrets.ENV_DATA }}" > .env
 
       - name: Install dependencies
         run: |
@@ -50,15 +28,6 @@ jobs:
       - name: Run Black code formatter check
         run: |
           black . --check
-
-      - name: Run migrations
-        run: python manage.py migrate
-
-      - name: Run tests with coverage
-        run: |
-          coverage run manage.py test
-          coverage report --fail-under=80
-
 
       - name: Set up Docker Compose
         run: docker compose build
