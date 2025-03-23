@@ -33,5 +33,5 @@ urlpatterns = [
         schema_view.without_ui(cache_timeout=0),
         name="schema-json",
     ),
-    path('', include('django_prometheus.urls')),
+    path("", include("django_prometheus.urls")),
 ]
