@@ -32,15 +32,23 @@ class ReserveWishView(APIView):
         wish = get_object_or_404(Wish, pk=pk)
 
         if wish.user == request.user:
-            return Response({"error": "You can't reserve your own wish."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {"error": "You can't reserve your own wish."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
 
         if wish.gift_by and wish.gift_by != request.user:
-            return Response({"error": "This wish is already reserved."}, status=status.HTTP_409_CONFLICT)
+            return Response(
+                {"error": "This wish is already reserved."},
+                status=status.HTTP_409_CONFLICT,
+            )
 
         wish.gift_by = request.user
         wish.save()
 
-        return Response({"error": "Wish reserved successfully."}, status=status.HTTP_200_OK)
+        return Response(
+            {"error": "Wish reserved successfully."}, status=status.HTTP_200_OK
+        )
 
 
 class UnreserveWishView(APIView):
@@ -50,12 +58,20 @@ class UnreserveWishView(APIView):
         wish = get_object_or_404(Wish, pk=pk)
 
         if request.user != wish.gift_by and request.user != wish.user:
-            return Response({"error": "You can't unreserve this wish."}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {"error": "You can't unreserve this wish."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
 
         if not wish.gift_by:
-            return Response({"error": "This wish is not reserved."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "This wish is not reserved."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         wish.gift_by = None
         wish.save()
 
-        return Response({"error": "Wish unreserved successfully."}, status=status.HTTP_200_OK)
+        return Response(
+            {"error": "Wish unreserved successfully."}, status=status.HTTP_200_OK
+        )

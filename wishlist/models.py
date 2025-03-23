@@ -9,7 +9,9 @@ class Wish(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     link = models.URLField(blank=True)
-    gift_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="will_gift", blank=True, null=True)
+    gift_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="will_gift", blank=True, null=True
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 

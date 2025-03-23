@@ -30,7 +30,9 @@ class WishTests(APITestCase):
         self.assertEqual(len(response.data), 1)
 
     def test_update_wish(self):
-        wish = Wish.objects.create(user=self.user, title="Failed PIPO", description="Description")
+        wish = Wish.objects.create(
+            user=self.user, title="Failed PIPO", description="Description"
+        )
         update_data = {"title": "Passed PIPO", "description": "Updated description"}
         response = self.client.put(
             f"/api/wishes/{wish.id}/", update_data, **self.auth_header
