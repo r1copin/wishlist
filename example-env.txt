@@ -1,0 +1,15 @@
+# --- Django Secret Settings ---
+SECRET_KEY=super-secret-key-123
+DEBUG=True
+
+# --- Django Superuser ---
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_EMAIL=admin@example.com
+DJANGO_SUPERUSER_PASSWORD=admin123
+
+# --- Postgres Settings ---
+DB_NAME=jwt_db
+DB_USER=jwt_user
+DB_PASSWORD=jwt_pass
+DB_HOST=db
+DB_PORT=5432
